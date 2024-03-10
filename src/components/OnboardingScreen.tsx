@@ -1,8 +1,15 @@
 import React from 'react';
 import { Box, Button, Container } from '@mui/material';
 import Carousel from './Carousel';
+import { useNavigate } from 'react-router-dom';
 
 const OnboardingScreen: React.FC = () => {
+  let navigate = useNavigate();
+
+  const handleLoginClick = () => {
+    navigate('/login');
+  };
+  
   return (
     <Container maxWidth="sm">
       <Box
@@ -23,7 +30,7 @@ const OnboardingScreen: React.FC = () => {
           <Button variant="contained" color="primary" fullWidth>
             Sign Up
           </Button>
-          <Button variant="outlined" color="primary" fullWidth sx={{ mt: 2 }}>
+          <Button variant="outlined" color="primary" fullWidth sx={{ mt: 2 }} onClick={handleLoginClick}>
             Login
           </Button>
         </Box>
