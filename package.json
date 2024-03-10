@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@apollo/client": "^3.9.6",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.0",
     "@fontsource/roboto": "^5.0.12",
@@ -12,8 +13,12 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/react-swipeable-views": "^0.13.5",
+    "graphql": "^16.8.1",
+    "graphql-tag": "^2.12.6",
+    "js-cookie": "^3.0.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-router-dom": "^6.22.3",
     "react-scripts": "5.0.1",
     "react-swipeable-views": "^0.14.0",
     "web-vitals": "^2.1.4"
@@ -43,6 +48,7 @@
     ]
   },
   "devDependencies": {
+    "@types/js-cookie": "^3.0.6",
     "@types/react-swipeable-views-utils": "^0.13.7"
   }
 }
