@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Card, Typography } from '@mui/material';
-import { GET_ACCOUNT_SUMMARY } from '../graphql/queries/homeQueries';
+import { GET_ACCOUNT_SUMMARY } from '../../graphql/queries/homeQueries';
 import { useQuery } from '@apollo/client';
 
 const formatCurrency = (amount: number) => {

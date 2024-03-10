@@ -1,5 +1,5 @@
 import React from 'react';
-import AccountSummary from './AccountSummary';
+import AccountSummary from '../common/AccountSummary';
 import { Container } from '@mui/material';
 
 const HomePage: React.FC = () => {
