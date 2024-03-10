@@ -19,8 +19,8 @@ const AccountSummary = () => {
   const { income, expenses } = data.getAccountSummary;
 
   return (
-    <Box>
-      <Typography variant="body1" component="div" textAlign="center">
+    <Box sx={{ marginTop: '20px'}}>
+      <Typography variant="body1" textAlign="center">
         {new Date().toLocaleString('default', { month: 'long' })}
       </Typography>
       <Box display="flex" justifyContent="center" alignItems="center">
@@ -31,7 +31,7 @@ const AccountSummary = () => {
               <Typography color="white" gutterBottom>
                 Income
               </Typography>
-              <Typography variant="h5" color="white">
+              <Typography variant="h6" color="white">
                 {formatCurrency(income)}
               </Typography>
             </Box>
@@ -44,7 +44,7 @@ const AccountSummary = () => {
               <Typography color="white" gutterBottom>
                 Expenses
               </Typography>
-              <Typography variant="h5" color="white">
+              <Typography variant="h6" color="white">
                 {formatCurrency(expenses)}
               </Typography>
             </Box>
