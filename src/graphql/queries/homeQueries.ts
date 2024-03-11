@@ -17,3 +17,19 @@ export const GET_EXPENSES_BY_DAY = gql`
     }
   }
 `;
+
+export const GET_RECENT_TRANSACTIONS = gql`
+  query GetRecentTransactions($limit: Float!) {
+    getUserTransactions(filters: { limit: $limit }) {
+      id
+      amount
+      type
+      category {
+        id
+        name
+      }
+      description
+      date
+    }
+  }
+`;
