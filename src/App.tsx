@@ -1,14 +1,25 @@
 import React from 'react';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import OnboardingScreen from './components/OnboardingScreen';
+import OnboardingScreen from './components/pages/OnboardingScreen';
 import theme from './theme';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import LoginPage from './components/pages/LoginPage';
+import ResetPasswordPage from './components/pages/ResetPasswordPage';
+import HomePage from './components/pages/HomePage';
 
 const App: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
-      <CssBaseline /> {/* This is MUI's CSS reset */}
-      <OnboardingScreen />
+      <CssBaseline />
+      <Router>
+        <Routes>
+          <Route path="/" element={<OnboardingScreen />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/reset-password" element={<ResetPasswordPage />} />
+          <Route path="/home" element={<HomePage />} />
+        </Routes>
+      </Router>
     </ThemeProvider>
   );
 };
