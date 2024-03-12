@@ -4,14 +4,25 @@ import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import PersonIcon from '@mui/icons-material/Person';
+import { useNavigate } from 'react-router-dom';
 
 
 const FooterWithFab = () => {
   const theme = useTheme();
   const [isOpen, setIsOpen] = useState(false);
 
+  const navigate = useNavigate();
+
   const handleToggle = () => {
     setIsOpen(!isOpen);
+  };
+
+  const handleIncomeClick = () => {
+    navigate('/transaction/income');
+  };
+
+  const handleExpenseClick = () => {
+    navigate('/transaction/expense');
   };
 
   return (
@@ -45,10 +56,10 @@ const FooterWithFab = () => {
       )}
         {isOpen && (
           <Box sx={{ position: 'absolute', top: -80, left: '50%', transform: 'translateX(-50%)', zIndex: 1 }}>
-            <Fab color="secondary" sx={{ mb: 2, marginRight: '40px' }}>
+            <Fab color="secondary" sx={{ mb: 2, marginRight: '40px' }} onClick={handleIncomeClick}>
               <img src={'images/income-icon.png'} alt="Income" style={{ width: '100%', height: '100%' }} />
             </Fab>
-            <Fab color="secondary" sx={{ mb: 2 }}>
+            <Fab color="secondary" sx={{ mb: 2 }} onClick={handleExpenseClick}>
               <img src={'images/expenses-icon.png'} alt="Expense" style={{ width: '100%', height: '100%' }} />
             </Fab>
           </Box>
