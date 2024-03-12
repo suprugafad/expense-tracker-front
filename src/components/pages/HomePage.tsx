@@ -3,6 +3,7 @@ import AccountSummary from '../common/AccountSummary';
 import { Container } from '@mui/material';
 import SpendFrequencyChart from '../common/SpendFrequencyChart';
 import RecentTransactions from '../common/RecentTransactions';
+import FooterWithFab from '../common/HomeFooter';
 
 const HomePage: React.FC = () => {
   return (
@@ -10,6 +11,7 @@ const HomePage: React.FC = () => {
       <AccountSummary />
       <SpendFrequencyChart />
       <RecentTransactions />
+      <FooterWithFab />
     </Container>
   );
 };

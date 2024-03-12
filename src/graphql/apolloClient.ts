@@ -19,10 +19,10 @@ const authLink = setContext((_, { headers }) => {
 });
 
 const errorLink = onError(({ graphQLErrors, operation, forward }) => {
-  if (graphQLErrors) {
+  if (graphQLErrors) {    
     for (let err of graphQLErrors) {
-      switch (err.extensions?.code) {
-        case 'UNAUTHENTICATED':
+      switch (err.extensions?.statusCode) { //works only with err.statusCode
+        case 401:
           const refreshToken = Cookies.get('refreshToken') || '';
 
           client.mutate({
