@@ -9,21 +9,24 @@ import ResetPasswordPage from './components/pages/ResetPasswordPage';
 import HomePage from './components/pages/HomePage';
 import TransactionPage from './components/pages/TransactionPage';
 import { TransactionType } from './types';
+import { SnackbarProvider } from './components/common/SnackbarProvider';
 
 const App: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Router>
-        <Routes>
-          <Route path="/" element={<OnboardingScreen />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/reset-password" element={<ResetPasswordPage />} />
-          <Route path="/home" element={<HomePage />} />
-          <Route path="/transaction/income" element={<TransactionPage transactionType={TransactionType.INCOME} />} />
-          <Route path="/transaction/expense" element={<TransactionPage transactionType={TransactionType.EXPENSES} />} />
-        </Routes>
-      </Router>
+      <SnackbarProvider>
+        <Router>
+          <Routes>
+            <Route path="/" element={<OnboardingScreen />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/reset-password" element={<ResetPasswordPage />} />
+            <Route path="/home" element={<HomePage />} />
+            <Route path="/transaction/income" element={<TransactionPage transactionType={TransactionType.INCOME} />} />
+            <Route path="/transaction/expense" element={<TransactionPage transactionType={TransactionType.EXPENSES} />} />
+          </Routes>
+        </Router>
+      </SnackbarProvider>
     </ThemeProvider>
   );
 };
