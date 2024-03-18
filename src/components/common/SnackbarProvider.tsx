@@ -31,7 +31,7 @@ export const SnackbarProvider: FunctionComponent<SnackbarProviderProps> = ({ chi
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
         message={message}
         onClose={closeSnackbar}
-        autoHideDuration={6000}
+        autoHideDuration={4000}
       />
       {children}
     </SnackbarContext.Provider>
