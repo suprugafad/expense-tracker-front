@@ -12,7 +12,13 @@ export interface Transaction {
   id: string;
   type: TransactionType;
   category: CategoryInTransaction;
-  description: string;
+  description?: string;
   amount: number;
   time: string;
+}
+
+export interface Category {
+  id: string;
+  name: string;
+  description?: string;
 }
