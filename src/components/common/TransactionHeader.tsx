@@ -1,23 +1,20 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { IconButton, Typography, TextField, Box, InputAdornment } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useNavigate } from 'react-router-dom';
 
 interface TransactionHeaderProps {
   pageTitle: string;
-  headerColor: 'error' | 'success';
+  amount: string;
+  amountError: string;
+  handleAmountChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const TransactionHeader: React.FC<TransactionHeaderProps> = ({ pageTitle, headerColor }) => {
-  const [amount, setAmount] = useState('');
+const TransactionHeader: React.FC<TransactionHeaderProps> = ({ pageTitle, amount, amountError, handleAmountChange }) => {
   const navigate = useNavigate();
   
   const goBack = () => {
     navigate(-1);
-  };
-
-  const handleAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setAmount(event.target.value);
   };
 
   return (
@@ -37,6 +34,18 @@ const TransactionHeader: React.FC<TransactionHeaderProps> = ({ pageTitle, header
         </Typography>
         <TextField
           type="number"
+          error={!!amountError}
+          helperText={amountError}
+          FormHelperTextProps={{
+            sx: { 
+              fontSize: '1.1rem',
+              backgroundColor: 'white',
+              textAlign: 'center',
+              borderRadius: '5px',
+              fontStyle: 'italic',
+              fontWeight: 'bold',
+            }
+          }}
           variant="outlined"
           value={amount}
           onChange={handleAmountChange}
@@ -45,7 +54,9 @@ const TransactionHeader: React.FC<TransactionHeaderProps> = ({ pageTitle, header
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                <Typography sx={{ fontSize: '4rem', lineHeight: '1', color: 'white', fontWeight: 'bold' }}>$</Typography>
+                <Typography sx={{ fontSize: '4rem', lineHeight: '1', color: 'white', fontWeight: 'bold' }}>
+                  $
+                </Typography>
               </InputAdornment>
             ),
             style: { fontSize: '4rem' },
