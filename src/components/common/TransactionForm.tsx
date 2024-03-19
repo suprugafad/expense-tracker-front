@@ -29,7 +29,6 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
   const [openDialog, setOpenDialog] = useState(false);
   const [newCategoryName, setNewCategoryName] = useState('');
   const [newCategoryDescription, setNewCategoryDescription] = useState('');
-  const [addCategory] = useMutation(ADD_CATEGORY);
 
   const { openSnackbar } = useContext(SnackbarContext);
 
@@ -48,6 +47,8 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
   const handleNewCategoryDescription = (event: any) => {
     setNewCategoryDescription(event.target.value);
   };
+
+  const [addCategory] = useMutation(ADD_CATEGORY, { refetchQueries: [ { query: GET_CATEGORIES }] });
 
   const onSubmitNewCategory = async () => {
     try {

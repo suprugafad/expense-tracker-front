@@ -7,6 +7,7 @@ import { useMutation } from '@apollo/client';
 import { ADD_TRANSACTION } from '../../graphql/mutations/transactionMutations';
 import { useNavigate } from 'react-router-dom';
 import { SnackbarContext } from '../../contexts/SnackbarContext';
+import { GET_ACCOUNT_SUMMARY, GET_EXPENSES_BY_DAY, GET_RECENT_TRANSACTIONS } from '../../graphql/queries/homeQueries';
 
 const TransactionPage: React.FC<{ transactionType: TransactionType }> = ({ transactionType }) => {
   const [amount, setAmount] = useState('');
@@ -23,8 +24,13 @@ const TransactionPage: React.FC<{ transactionType: TransactionType }> = ({ trans
 
   const navigate = useNavigate();
 
-  const [addTransaction] = useMutation(ADD_TRANSACTION);
-  
+  const [addTransaction] = useMutation(ADD_TRANSACTION, {
+    refetchQueries: [
+      { query: GET_ACCOUNT_SUMMARY },
+      { query: GET_EXPENSES_BY_DAY, variables: { days: 7 } },
+      { query: GET_RECENT_TRANSACTIONS, variables: { limit: 3 } },
+    ],
+  });
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
