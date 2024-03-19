@@ -22,7 +22,9 @@ const RecentTransactions: React.FC = () => {
     <Box sx={{marginTop: '10px'}}>
       <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', margin: 0}}>
         <Typography variant="body1" sx={{fontWeight: 'bold'}}>Recent Transactions</Typography>
-        <Button variant="outlined" color="primary" size="small" sx={{borderRadius: '25px', border:'none', backgroundColor: '#f5edff', textTransform: 'none'}}>See all</Button>
+        <Button variant="outlined" color="primary" size="small" sx={{borderRadius: '25px', border:'1px solid #f5edff', backgroundColor: '#f5edff', textTransform: 'none'}}>
+          See all
+        </Button>
       </Box>
       <List>
         {transactions.slice(0, 3).map((transaction: Transaction) => (

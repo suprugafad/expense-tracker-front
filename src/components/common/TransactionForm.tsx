@@ -76,7 +76,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
   const categories = data.getUserCategories;
 
   return (
-    <Box component="form" onSubmit={handleSubmit} sx={{ m: 1, height: '60vh', backgroundColor: 'white', margin: '0px', borderTopLeftRadius: '30px', borderTopRightRadius: '30px', padding: '16px', textAlign: 'right' }}>
+    <Box component="form" onSubmit={handleSubmit} sx={{ m: 1, height: '55vh', backgroundColor: 'white', margin: '0px', borderTopLeftRadius: '30px', borderTopRightRadius: '30px', padding: '16px', textAlign: 'right' }}>
       <FormControl fullWidth margin="normal">
         <InputLabel>Category</InputLabel>
         <Select
@@ -93,7 +93,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
           ))}
         </Select>
       </FormControl>
-      <Button onClick={handleClickOpenDialog} variant="outlined" color="primary" size="small" sx={{borderRadius: '25px', border:'none', backgroundColor: '#f5edff', textTransform: 'none'}}>
+      <Button onClick={handleClickOpenDialog} variant="outlined" color="primary" size="small" sx={{border:'1px solid #f5edff', borderRadius: '25px', backgroundColor: '#f5edff', textTransform: 'none'}}>
         Add new category
       </Button>
       <AddCategoryDialog 
