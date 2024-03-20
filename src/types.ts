@@ -21,7 +21,7 @@ export interface Transaction {
   category: CategoryInTransaction;
   description?: string;
   amount: number;
-  time: string;
+  date: string;
 }
 
 export interface Category {
