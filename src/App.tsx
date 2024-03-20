@@ -10,6 +10,7 @@ import HomePage from './components/pages/HomePage';
 import TransactionPage from './components/pages/TransactionPage';
 import { TransactionType } from './types';
 import { SnackbarProvider } from './components/common/SnackbarProvider';
+import TransactionHistoryPage from './components/pages/TransactionHistoryPage';
 
 const App: React.FC = () => {
   return (
@@ -24,6 +25,7 @@ const App: React.FC = () => {
             <Route path="/home" element={<HomePage />} />
             <Route path="/transaction/income" element={<TransactionPage transactionType={TransactionType.INCOME} />} />
             <Route path="/transaction/expense" element={<TransactionPage transactionType={TransactionType.EXPENSES} />} />
+            <Route path="/transaction-history" element={<TransactionHistoryPage/>} />
           </Routes>
         </Router>
       </SnackbarProvider>
