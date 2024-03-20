@@ -1,7 +1,8 @@
 import { Box, FormControl, IconButton, InputLabel, MenuItem, Select } from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { PeriodEnum } from '../../types';
+import TransactionFiltersDialog from './TransactionFilterDialog/TransactionFiltersDialog';
 
 interface TransactionHistoryHeaderProps {
   period: PeriodEnum,
@@ -9,7 +10,16 @@ interface TransactionHistoryHeaderProps {
 }
 
 const TransactionHistoryHeader: React.FC<TransactionHistoryHeaderProps> = ({ period, handleChangePeriod }) => {
+  const [open, setOpen] = useState(false);
   
+  const onClose = () => {
+    setOpen(false);
+  }
+
+  const handleFilter = () => {
+    setOpen(true);
+  }
+
   return (
     <>
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -26,11 +36,11 @@ const TransactionHistoryHeader: React.FC<TransactionHistoryHeaderProps> = ({ per
             <MenuItem value={PeriodEnum.LAST_YEAR}>Last Year</MenuItem>
           </Select>
         </FormControl>
-
-        <IconButton onClick={()=>{}} size='large' sx={{color: 'black', fontSize: 'large'}}>
+        <IconButton onClick={handleFilter} size='large' sx={{color: 'black', fontSize: 'large'}}>
           <FilterListIcon sx={{fontSize: '32px'}}/>
         </IconButton>
       </Box>
+      <TransactionFiltersDialog open={ open } onClose={ onClose }/>
     </>
   )
 }
