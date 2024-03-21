@@ -4,20 +4,19 @@ import {
   DialogTitle,
   DialogContent,
   ToggleButton,
-  ToggleButtonGroup,
   FormControl,
   Select,
   MenuItem,
   Button,
   Box,
   Chip,
-  toggleButtonGroupClasses,
-  styled,
   Typography,
 } from '@mui/material';
 import { GET_CATEGORIES } from '../../../graphql/queries/transactionQueries';
 import { useQuery } from '@apollo/client';
-import { Category } from '../../../types';
+import { Category, TransactionType } from '../../../types';
+import { StyledToggleButtonGroup, transactionFiltersDialogStyles as styles } from './TransactionFiltersDialog.styles';
+import { useTransactionFilter } from '../../../contexts/TransactionFilterContext';
 
 interface TransactionFiltersDialogProps {
   open: boolean;
@@ -25,97 +24,88 @@ interface TransactionFiltersDialogProps {
 }
 
 type SortValue = 'highest' | 'lowest' | 'newest' | 'oldest';
-type CategoryValue = string[];
-
-const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({ theme }) => ({
-  display: 'flex',
-  flexWrap: 'wrap',
-  
-  [`& .${toggleButtonGroupClasses.grouped}`]: {
-    margin: theme.spacing(0.5),
-    border: '1px solid',
-    textTransform: 'none',
-    fontSize: '1rem',
-    width: '100px',
-    borderRadius: '30px',
-    '&.Mui-selected': {
-      border: 'none',
-    },
-  },
-}));
-
-const dialogStyles = {
-  height: '70vh',
-  marginTop: '30vh',
-  '& .MuiPaper-rounded': { 
-    borderTopLeftRadius: '30px', 
-    borderTopRightRadius: '30px' 
-  },
-};
-
-const titleStyles = {
-  marginTop: '5px',
-  textAlign: 'center',
-  fontWeight: 'bold',
-};
+type CategoriesValue = string[];
 
 const TransactionFiltersDialog: React.FC<TransactionFiltersDialogProps> = ({ open, onClose }) => {
-  const [types, setTypes] = useState(() => ['expense', 'income']);
-  const [sort, setSort] = useState<SortValue>('newest');
-  const [category, setCategory] = useState<CategoryValue>([]);
+  const { types, sort, categories, setTypes, setSort, setCategories } = useTransactionFilter();
+  
+  const [localTypes, setLocalTypes] = useState<TransactionType[]>(types);
+  const [localSort, setLocalSort] = useState<SortValue>(sort);
+  const [localCategories, setLocalCategories] = useState<CategoriesValue>(categories);
 
   const { data, loading, error } = useQuery(GET_CATEGORIES);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
-  const categories = data.getUserCategories;
+  const categoriesResult = data.getUserCategories;
 
-  const handleTypeChange = (
-    event: React.MouseEvent<HTMLElement>,
-    newTypes: string[],) => {
-      if (newTypes.length) {
-        setTypes(newTypes);
-      }
+  const handleLocalTypeChange = (
+    event: React.MouseEvent<HTMLElement>, 
+    newTypes: TransactionType[]
+  ) => {
+    if (newTypes.length > 0) {
+      setLocalTypes(newTypes);
+    }
   };
 
-  const handleSortChange = (event: any) => {
-    setSort(event.target.value);
+  const handleLocalSortChange = (event: any) => {
+    setLocalSort(event.target.value);
   };
 
-  const handleCategoryChange = (event: any) => {
-    setCategory(event.target.value);
+  const handleLocalCategoryChange = (event: any) => {
+    setLocalCategories(event.target.value);
   };
 
   const handleReset = () => {
-    setTypes(() => ['expense', 'income']);
-    setSort('newest');
-    setCategory([]);
+    setLocalTypes(() => [TransactionType.INCOME, TransactionType.EXPENSES]);
+    setLocalSort('newest');
+    setLocalCategories([]);
+  };
+
+  const handleClose = () => {
+    setLocalTypes(types);
+    setLocalSort(sort);
+    setLocalCategories(categories);
+
+    onClose();
+  }
+
+  const handleApply = () => {
+    setTypes(localTypes);
+    setSort(localSort);
+    setCategories(localCategories);
+
+    onClose();
   };
 
   return (
-    <Dialog open={open} onClose={onClose} fullScreen sx={dialogStyles}>
-      <DialogTitle sx={titleStyles}>Filter Transactions</DialogTitle>
+    <Dialog open={open} onClose={handleClose} fullScreen sx={styles.dialog}>
+      <DialogTitle sx={styles.dialogTitle}>
+        Filter Transactions
+      </DialogTitle>
       <DialogContent>
-        <Typography sx={{ margin: '0 0 10px 10px', fontWeight: 'bold' }}>Transaction type</Typography>
+        <Typography sx={styles.typography}>
+          Transaction type
+        </Typography>
         <StyledToggleButtonGroup
-          value={types}
-          onChange={handleTypeChange}
+          value={localTypes}
+          onChange={handleLocalTypeChange}
           aria-label="type"
           color="primary"
         >
-          <ToggleButton value="income" aria-label="income">
+          <ToggleButton value={TransactionType.INCOME} aria-label={TransactionType.INCOME}>
             Income
           </ToggleButton>
-          <ToggleButton value="expense" aria-label="expense">
+          <ToggleButton value={TransactionType.EXPENSES} aria-label={TransactionType.EXPENSES}>
             Expense
           </ToggleButton>
         </StyledToggleButtonGroup>
 
-        <Typography sx={{ margin: '15px 0 10px 10px', fontWeight: 'bold' }}>Sort by</Typography>
+        <Typography sx={styles.typography}>Sort by</Typography>
         <StyledToggleButtonGroup
-          value={sort}
-          onChange={handleSortChange}
+          value={localSort}
+          onChange={handleLocalSortChange}
           aria-label="sort"
           color="primary"
         >
@@ -133,41 +123,45 @@ const TransactionFiltersDialog: React.FC<TransactionFiltersDialogProps> = ({ ope
           </ToggleButton>
         </StyledToggleButtonGroup>
 
-        <Typography sx={{ margin: '15px 0 10px 10px', fontWeight: 'bold' }}>Category</Typography>
+        <Typography sx={styles.typography}>Category</Typography>
         <FormControl fullWidth>
           <Select
             multiple
-            value={category}
-            onChange={handleCategoryChange}
+            value={localCategories}
+            onChange={handleLocalCategoryChange}
             displayEmpty
             renderValue={(selected) => {
               if (selected.length === 0) {
                 return <em>Choose Category</em>;
               }
               return ( 
-                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                  {selected.map((value) => (
-                    <Chip key={value} label={value} />
-                  ))}
+                <Box sx={styles.selectBox}>
+                  {selected.map((id) => {
+                    const category = categoriesResult.find((c: Category) => c.id === id);
+                    return category ? (
+                      <Chip key={id} label={category.name} />
+                    ) : null;
+                  })}
                 </Box> 
               )
             }}
           >
-            {categories.map((category: Category) => (
-              <MenuItem key={category.id} value={category.name}>{category.name}</MenuItem>
+            {categoriesResult.map((category: Category) => (
+              <MenuItem key={category.id} value={category.id}>
+                {category.name}
+              </MenuItem>
             ))}
           </Select>
         </FormControl>
-        <Box sx={{display: 'flex', justifyContent: 'flex-end'}}>
-          <Button onClick={handleReset} size="medium" sx={{ width: '80px',  marginLeft: 'auto', marginTop: '15px', borderRadius: '25px', border:'1px solid #f5edff', backgroundColor: '#f5edff', textTransform: 'none'}}>
+        <Box sx={styles.boxResetButton}>
+          <Button onClick={handleReset} size="medium" sx={styles.resetButton}>
             Reset
           </Button>
         </Box>
-        <Button onClick={onClose} variant="contained" sx={{marginTop: '10px',width: '100%', borderRadius: '15px', height: '45px', textTransform: 'none', fontSize: '1.1rem'}}>
+        <Button onClick={handleApply} variant="contained" sx={styles.applyButton}>
           Apply
         </Button>
       </DialogContent>
-        
     </Dialog>
   );
 }
