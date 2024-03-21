@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import FooterWithFab from '../common/HomeFooter';
+import FooterWithFab from '../common/FooterWithFab/FooterWithFab';
 import TransactionHistoryHeader from '../common/TransactionHistoryHeader';
 import { Container } from '@mui/material';
 import PeriodTransactions from '../common/PeriodTransactions';
