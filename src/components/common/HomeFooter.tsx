@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { Box, Fab, useTheme } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
-import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
+import HomeIcon from '@mui/icons-material/Home';
 import PersonIcon from '@mui/icons-material/Person';
+import HistoryIcon from '@mui/icons-material/History';
+import DataUsageIcon from '@mui/icons-material/DataUsage';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -25,15 +27,33 @@ const FooterWithFab = () => {
     navigate('/transaction/expense');
   };
 
+  const handleHomeClick = () => {
+    navigate('/home');
+  };
+
+  const handleHistoryClick = () => {
+    navigate('/transaction-history');
+  };
+
+  const handleAnalyticsClick = () => {
+    navigate('/home');
+  };
+
   return (
     <>
       <Box sx={{ position: 'fixed', bottom: theme.spacing(2), left: 0, right: 0, textAlign: 'center' }}>
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
-          <Fab color="default" size="medium">
-            <AccountBalanceWalletIcon />
+          <Fab color="default" size="medium" onClick={handleHomeClick}>
+            <HomeIcon />
+          </Fab>
+          <Fab color="default" size="medium" onClick={handleHistoryClick}>
+            <HistoryIcon />
           </Fab>
           <Fab color="primary" onClick={handleToggle} sx={{ position: 'relative', zIndex: 1 }}>
             {isOpen ? <CloseIcon /> : <AddIcon />}
+          </Fab>
+          <Fab color="default" size="medium" onClick={handleAnalyticsClick}>
+            <DataUsageIcon />
           </Fab>
           <Fab color="default" size="medium">
             <PersonIcon />
