@@ -9,7 +9,7 @@ import ResetPasswordPage from './components/pages/ResetPasswordPage';
 import HomePage from './components/pages/HomePage';
 import TransactionPage from './components/pages/TransactionPage';
 import { TransactionType } from './types';
-import { SnackbarProvider } from './components/common/SnackbarProvider';
+import { SnackbarProvider } from './contexts/SnackbarProvider';
 import TransactionHistoryPage from './components/pages/TransactionHistoryPage';
 
 const App: React.FC = () => {
