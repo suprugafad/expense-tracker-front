@@ -14,8 +14,8 @@ export const GET_CATEGORIES = gql`
 `;
 
 export const GET_USER_TRANSACTIONS = gql`
-  query GetUserTransactions($limit: Float, $startDate: DateTime, $endDate: DateTime, $categoryId: String, $type: TransactionTypeEnum) {
-    getUserTransactions(filters: { limit: $limit, startDate: $startDate, endDate: $endDate, categoryId: $categoryId, type: $type }) {
+  query GetUserTransactions($limit: Float, $startDate: DateTime, $endDate: DateTime, $categoryIds: [String!], $type: TransactionTypeEnum) {
+    getUserTransactions(filters: { limit: $limit, startDate: $startDate, endDate: $endDate, categoryIds: $categoryIds, type: $type }) {
       id
       amount
       type
