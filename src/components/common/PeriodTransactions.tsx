@@ -33,18 +33,21 @@ function calculateStartDate(period: PeriodEnum): Date {
 
 const PeriodTransactions: React.FC<PeriodTransactionsProps> = ({ period }) => {
   const [startDate, setStartDate] = useState<string>("");
-  const { types, categories } = useTransactionFilter();
+  const { types, sort, categories } = useTransactionFilter();
 
   useEffect(() => {
     setStartDate(calculateStartDate(period).toISOString());
   }, [period]);
 
   const filterType = types.length === 1 ? types[0] : null;
+  console.log(sort);
+  
 
   const { data, loading, error } = useQuery(GET_USER_TRANSACTIONS, {
     variables: { 
       startDate,
       categoryIds: categories.length ? categories : null,
+      sortOrder: sort.toUpperCase(),
       type: filterType,
     },
   });
@@ -56,7 +59,7 @@ const PeriodTransactions: React.FC<PeriodTransactionsProps> = ({ period }) => {
 
   return (
     <Box>
-      <TransactionList transactions={transactions}/>
+      <TransactionList transactions={transactions} isHomePage={false}/>
     </Box>
   )
 }
