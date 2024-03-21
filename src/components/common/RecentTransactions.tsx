@@ -25,7 +25,7 @@ const RecentTransactions: React.FC = () => {
           See all
         </Button>
       </Box>
-      <TransactionList transactions={ transactions }/>
+      <TransactionList transactions={ transactions } isHomePage={true}/>
     </Box>
   );
 };
