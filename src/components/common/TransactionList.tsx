@@ -44,7 +44,7 @@ const TransactionList: React.FC<TransactionListProps> = ({ transactions, isHomeP
     <List sx={{ width: '100%', bgcolor: 'background.paper', marginBottom: '60px' }}>
       {Object.keys(groupedTransactions).map((date) => (
         <React.Fragment key={date}>
-          {!isHomePage && <ListSubheader>{date}</ListSubheader>}
+          {!isHomePage && <ListSubheader sx={{zIndex: 0}}>{date}</ListSubheader>}
           {groupedTransactions[date].map((transaction) => (
             <ListItem key={transaction.id} sx={{ backgroundColor: '#F6f6f7', borderRadius: '20px', marginBottom: '6px', height: '80px' }}>
               <ListItemAvatar>
