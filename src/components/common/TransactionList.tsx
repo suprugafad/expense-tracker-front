@@ -2,9 +2,11 @@ import { Avatar, List, ListItem, ListItemAvatar, ListItemSecondaryAction, ListIt
 import React from 'react';
 import { Transaction, TransactionType } from '../../types';
 import { format } from 'date-fns';
+import { useTransactionFilter } from '../../contexts/TransactionFilterContext';
 
 export interface TransactionListProps {
   transactions: Transaction[];
+  isHomePage: boolean;
 }
 
 const getImage = (type: TransactionType) => {
@@ -22,7 +24,7 @@ interface GroupedTransactions {
 
 const groupTransactionsByDate = (transactions: Transaction[]) => {
   return transactions.reduce((groups: GroupedTransactions, transaction: Transaction) => {
-    const date = formatDate(transaction.date).split(',')[0]; // 19 Jan, 10:54 -> 19 Jan
+    const date = formatDate(transaction.date).split(',')[0];
     if (!groups[date]) {
       groups[date] = [];
     }
@@ -31,14 +33,18 @@ const groupTransactionsByDate = (transactions: Transaction[]) => {
   }, {});
 };
 
-const TransactionList: React.FC<TransactionListProps> = ({ transactions }) => {  
-  const groupedTransactions = groupTransactionsByDate(transactions);
+const TransactionList: React.FC<TransactionListProps> = ({ transactions, isHomePage }) => {  
+  const { sort } = useTransactionFilter();
+
+  let areGrouped = sort === 'oldest' || sort === 'newest';
+
+  const groupedTransactions = areGrouped ? groupTransactionsByDate(transactions) : { '': transactions };
 
   return(
     <List sx={{ width: '100%', bgcolor: 'background.paper', marginBottom: '60px' }}>
       {Object.keys(groupedTransactions).map((date) => (
         <React.Fragment key={date}>
-          {transactions.length > 3 && <ListSubheader>{date}</ListSubheader>}
+          {!isHomePage && <ListSubheader>{date}</ListSubheader>}
           {groupedTransactions[date].map((transaction) => (
             <ListItem key={transaction.id} sx={{ backgroundColor: '#F6f6f7', borderRadius: '20px', marginBottom: '6px', height: '80px' }}>
               <ListItemAvatar>
