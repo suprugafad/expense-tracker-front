@@ -12,6 +12,8 @@ import { TransactionType } from './types';
 import { SnackbarProvider } from './contexts/SnackbarProvider';
 import TransactionHistoryPage from './components/pages/TransactionHistoryPage';
 import { TransactionFilterProvider } from './contexts/TransactionFilterProvider';
+import FinancialReportPage from './components/pages/FinancialReportPage';
+import SignUpPage from './components/pages/SignUpPage';
 
 const App: React.FC = () => {
   return (
@@ -23,11 +25,13 @@ const App: React.FC = () => {
             <Routes>
               <Route path="/" element={<OnboardingScreen />} />
               <Route path="/login" element={<LoginPage />} />
+              <Route path="/sign-up" element={<SignUpPage />} />
               <Route path="/reset-password" element={<ResetPasswordPage />} />
               <Route path="/home" element={<HomePage />} />
               <Route path="/transaction/income" element={<TransactionPage transactionType={TransactionType.INCOME} />} />
               <Route path="/transaction/expense" element={<TransactionPage transactionType={TransactionType.EXPENSES} />} />
               <Route path="/transaction-history" element={<TransactionHistoryPage/>} />
+              <Route path="/financial-report" element={<FinancialReportPage/>} />
             </Routes>
           </Router>
         </TransactionFilterProvider>

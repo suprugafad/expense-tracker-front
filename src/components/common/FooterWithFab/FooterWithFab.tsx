@@ -35,7 +35,7 @@ const FooterWithFab = () => {
   };
 
   const handleAnalyticsClick = () => {
-    navigate('/home');
+    navigate('/financial-report');
   };
 
   return (

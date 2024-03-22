@@ -18,6 +18,15 @@ export const GET_EXPENSES_BY_DAY = gql`
   }
 `;
 
+export const GET_AMOUNTS_BY_CATEGORY = gql`
+  query GetAmountsByCategory($days: Float!, $type: String!) {
+    getAmountsByCategory(days: $days, type: $type) {
+      category
+      sum
+    }
+  }
+`;
+
 export const GET_RECENT_TRANSACTIONS = gql`
   query GetRecentTransactions($limit: Float!) {
     getUserTransactions(filters: { limit: $limit }) {
