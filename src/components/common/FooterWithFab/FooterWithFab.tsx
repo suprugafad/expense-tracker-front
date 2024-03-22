@@ -6,13 +6,22 @@ import HomeIcon from '@mui/icons-material/Home';
 import PersonIcon from '@mui/icons-material/Person';
 import HistoryIcon from '@mui/icons-material/History';
 import DataUsageIcon from '@mui/icons-material/DataUsage';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { FooterWithFabStyles as styles } from './FooterWithFab.styles';
 
 const FooterWithFab = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const isActive = (path: string) => {
+    return location.pathname === path;
+  };
+
+  const activeStyle = {
+    backgroundColor: '#f5edff',
+  };
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
@@ -35,22 +44,22 @@ const FooterWithFab = () => {
   };
 
   const handleAnalyticsClick = () => {
-    navigate('/home');
+    navigate('/financial-report');
   };
 
   return (
     <Box sx={styles.footerBox}>
       <Box sx={styles.fabsBox}>
-        <Fab sx={styles.fab} size="medium" onClick={handleHomeClick}>
+        <Fab sx={isActive('/home') ? activeStyle : styles.fab} size="medium" onClick={handleHomeClick}>
           <HomeIcon />
         </Fab>
-        <Fab sx={styles.fab} size="medium" onClick={handleHistoryClick}>
+        <Fab sx={isActive('/transaction-history') ? activeStyle : styles.fab} size="medium" onClick={handleHistoryClick}>
           <HistoryIcon />
         </Fab>
         <Fab color="primary" onClick={handleToggle} sx={{ position: 'relative', zIndex: 1 }}>
           {isOpen ? <CloseIcon /> : <AddIcon />}
         </Fab>
-        <Fab sx={styles.fab} size="medium" onClick={handleAnalyticsClick}>
+        <Fab sx={isActive('/financial-report') ? activeStyle : styles.fab} size="medium" onClick={handleAnalyticsClick}>
           <DataUsageIcon />
         </Fab>
         <Fab sx={styles.fab} size="medium">

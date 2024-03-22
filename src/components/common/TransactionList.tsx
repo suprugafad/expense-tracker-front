@@ -41,7 +41,7 @@ const TransactionList: React.FC<TransactionListProps> = ({ transactions, isHomeP
   const groupedTransactions = areGrouped ? groupTransactionsByDate(transactions) : { '': transactions };
 
   return(
-    <List sx={{ width: '100%', bgcolor: 'background.paper', marginBottom: '60px' }}>
+    <List sx={{ width: '100%', bgcolor: 'background.paper', marginBottom: '20px' }}>
       {Object.keys(groupedTransactions).map((date) => (
         <React.Fragment key={date}>
           {!isHomePage && <ListSubheader sx={{zIndex: 0}}>{date}</ListSubheader>}
