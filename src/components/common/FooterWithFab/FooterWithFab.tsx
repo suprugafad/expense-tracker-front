@@ -41,19 +41,19 @@ const FooterWithFab = () => {
   return (
     <Box sx={styles.footerBox}>
       <Box sx={styles.fabsBox}>
-        <Fab color="default" size="medium" onClick={handleHomeClick}>
+        <Fab sx={styles.fab} size="medium" onClick={handleHomeClick}>
           <HomeIcon />
         </Fab>
-        <Fab color="default" size="medium" onClick={handleHistoryClick}>
+        <Fab sx={styles.fab} size="medium" onClick={handleHistoryClick}>
           <HistoryIcon />
         </Fab>
         <Fab color="primary" onClick={handleToggle} sx={{ position: 'relative', zIndex: 1 }}>
           {isOpen ? <CloseIcon /> : <AddIcon />}
         </Fab>
-        <Fab color="default" size="medium" onClick={handleAnalyticsClick}>
+        <Fab sx={styles.fab} size="medium" onClick={handleAnalyticsClick}>
           <DataUsageIcon />
         </Fab>
-        <Fab color="default" size="medium">
+        <Fab sx={styles.fab} size="medium">
           <PersonIcon />
         </Fab>
       </Box>

@@ -40,8 +40,6 @@ const PeriodTransactions: React.FC<PeriodTransactionsProps> = ({ period }) => {
   }, [period]);
 
   const filterType = types.length === 1 ? types[0] : null;
-  console.log(sort);
-  
 
   const { data, loading, error } = useQuery(GET_USER_TRANSACTIONS, {
     variables: { 

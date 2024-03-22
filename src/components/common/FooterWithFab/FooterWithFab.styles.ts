@@ -1,18 +1,26 @@
-import theme from '../../../theme';
-
 export const FooterWithFabStyles = {
   footerBox: { 
     position: 'fixed', 
-    bottom: theme.spacing(2), 
+    bottom: 0, 
     left: 0, 
     right: 0, 
     textAlign: 'center',
+    backgroundColor: 'rgba(211, 211, 211, 0.7)',
+    width: '100%',
+    height: '10vh',
+    paddingTop: '1.5vh',
+    borderTopLeftRadius: '25px', 
+    borderTopRightRadius: '25px',
   },
 
   fabsBox: { 
     display: 'flex', 
     alignItems: 'center', 
     justifyContent: 'space-evenly', 
+  },
+
+  fab: {
+    backgroundColor: 'white',
   },
 
   toggleBox: {
@@ -38,5 +46,5 @@ export const FooterWithFabStyles = {
     width: '100%', 
     height: '100%', 
   },
-  
+
 }
