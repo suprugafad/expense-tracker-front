@@ -16,6 +16,15 @@ const theme = createTheme({
       main: '#04ac74'
     }
   },
+  components: {
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          borderRadius: 15,
+        },
+      },
+    },
+  },
 });
 
 export default theme;

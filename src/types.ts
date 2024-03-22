@@ -3,6 +3,13 @@ export enum TransactionType {
   EXPENSES = 'EXPENSES',
 }
 
+export enum PeriodEnum {
+  WEEK = 'WEEK',
+  MONTH = 'MONTH',
+  THREE_MONTHS = 'THREE_MONTHS',
+  LAST_YEAR = 'LAST_YEAR'
+}
+
 interface CategoryInTransaction {
   id: string;
   name: string;
@@ -12,7 +19,13 @@ export interface Transaction {
   id: string;
   type: TransactionType;
   category: CategoryInTransaction;
-  description: string;
+  description?: string;
   amount: number;
-  time: string;
+  date: string;
+}
+
+export interface Category {
+  id: string;
+  name: string;
+  description?: string;
 }
