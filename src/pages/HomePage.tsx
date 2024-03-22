@@ -1,9 +1,9 @@
 import React from 'react';
-import AccountSummary from '../common/AccountSummary';
+import AccountSummary from '../features/home/AccountSummary';
 import { Container } from '@mui/material';
-import SpendFrequencyChart from '../common/SpendFrequencyChart';
-import RecentTransactions from '../common/RecentTransactions';
-import FooterWithFab from '../common/FooterWithFab/FooterWithFab';
+import SpendFrequencyChart from '../features/home/SpendFrequencyChart';
+import RecentTransactions from '../features/home/RecentTransactions';
+import FooterWithFab from '../components/layout/FooterWithFab/FooterWithFab';
 
 const HomePage: React.FC = () => {
   return (

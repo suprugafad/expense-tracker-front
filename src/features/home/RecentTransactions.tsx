@@ -3,7 +3,7 @@ import { Typography, Box, Button } from '@mui/material';
 import { GET_RECENT_TRANSACTIONS } from '../../graphql/queries/homeQueries';
 import { useQuery } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
-import TransactionList from './TransactionList';
+import TransactionList from '../../components/common/TransactionList';
 
 const RecentTransactions: React.FC = () => {
   const navigate = useNavigate();

@@ -1,18 +1,21 @@
-import React, { useState } from 'react';
-import { Box, Button, TextField, Typography, Container, IconButton, OutlinedInput, InputAdornment, InputLabel, FormControl, Alert } from '@mui/material';
+import React, { useContext, useState } from 'react';
+import { Box, Button, TextField, Typography, Container, IconButton, OutlinedInput, InputAdornment, InputLabel, FormControl } from '@mui/material';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { useNavigate } from 'react-router-dom';
 import { VisibilityOff, Visibility } from '@mui/icons-material';
-import useLogin from '../../hooks/useLogin';
-import Cookies from 'js-cookie';
+import { useMutation } from '@apollo/client';
+import { REGISTER_USER } from '../graphql/mutations/authMutations';
+import { SnackbarContext } from '../contexts/SnackbarContext';
 
-const LoginPage: React.FC = () => {
+const SignUpPage: React.FC = () => {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = React.useState(false);
-  const [loginError, setLoginError] = useState('');
 
-  const { login } = useLogin();
+  const [registerUser] = useMutation(REGISTER_USER);
+
+  const { openSnackbar } = useContext(SnackbarContext);
 
   const navigate = useNavigate();
 
@@ -22,27 +25,23 @@ const LoginPage: React.FC = () => {
     event.preventDefault();
   };
 
-  const handleLogin = async (event: any) => {
-    event.preventDefault();
-    setLoginError('');
-
+  const handleSignUp = async (event: any) => {
+    event.preventDefault();  
     try {
-      const user = await login(email, password);
+      await registerUser({
+        variables: {
+          name,
+          email,
+          password,
+        },
+      });
 
-      Cookies.set('accessToken', user.access_token, { expires: 1 });
-      Cookies.set('refreshToken', user.refresh_token, { expires: 7 });
-
-      const accessTokenExpiry = new Date(new Date().getTime() + 60 * 60 * 1000);
-      Cookies.set('accessToken', user.access_token, { expires: accessTokenExpiry });
-
-      const refreshTokenExpiry = new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000);
-      Cookies.set('refreshToken', user.refresh_token, { expires: refreshTokenExpiry });
-
-      navigate('/home');
+      openSnackbar('User was registered successfully')
+      navigate('/');
     } catch (err) {
-      setLoginError('Unable to login. Please check your entries and try again.');
-      console.error('Login error: ', err);
-    }
+      console.error('Error during login', err);
+      throw err;
+    } 
   };
 
   const goBack = () => {
@@ -51,18 +50,28 @@ const LoginPage: React.FC = () => {
 
   return (
     <Container component="main" maxWidth="xs">
-      {loginError && <Alert severity="error">{loginError}</Alert>}
       <Box sx={{ marginTop: 8 }}>
         <Box sx={{ my: 4, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <IconButton onClick={goBack} edge="start" sx={{ marginRight: 'auto' }}>
             <ArrowBackIosNewIcon />
           </IconButton>
           <Typography variant="h5" component="h1" sx={{ textAlign: 'center', width: '100%' }}>
-            Login
+            Sign Up
           </Typography>
           <Box sx={{ width: 48 }} />
         </Box>
-        <Box component="form" onSubmit={handleLogin} noValidate sx={{ mt: 1 }}>
+        <Box component="form" onSubmit={handleSignUp} noValidate sx={{ mt: 1 }}>
+        <TextField
+            margin="normal"
+            required
+            fullWidth
+            id="name"
+            label="Name"
+            name="name"
+            autoFocus
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
           <TextField
             margin="normal"
             required
@@ -106,16 +115,13 @@ const LoginPage: React.FC = () => {
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
           >
-            Login
+            Sign Up
           </Button>
           <Box textAlign="center">
-            {/* <Button sx={{ textTransform: 'none' }} onClick={handleResetPasswordClick}>
-              Forgot Password?
-            </Button> */}
             <Typography variant="body2">
-              Don't have an account yet?{' '}
-              <Button sx={{ textTransform: 'none' }} onClick={() => navigate('/sign-up')}>
-                Sign Up
+              Do have an account?{' '}
+              <Button sx={{ textTransform: 'none' }} onClick={() => navigate('/login')}>
+                Log In
               </Button>
             </Typography>
           </Box>
@@ -125,4 +131,4 @@ const LoginPage: React.FC = () => {
   );
 };
 
-export default LoginPage;
+export default SignUpPage;

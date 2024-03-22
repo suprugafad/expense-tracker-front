@@ -1,13 +1,13 @@
 import { Box, useTheme } from '@mui/material';
 import React, { useContext, useState } from 'react';
-import { TransactionType } from '../../types';
-import TransactionHeader from '../common/TransactionHeader';
-import TransactionForm from '../common/TransactionForm';
+import { TransactionType } from '../types';
+import TransactionHeader from '../features/add-transaction/TransactionHeader';
+import TransactionForm from '../features/add-transaction/TransactionForm';
 import { useMutation } from '@apollo/client';
-import { ADD_TRANSACTION } from '../../graphql/mutations/transactionMutations';
+import { ADD_TRANSACTION } from '../graphql/mutations/transactionMutations';
 import { useNavigate } from 'react-router-dom';
-import { SnackbarContext } from '../../contexts/SnackbarContext';
-import { GET_ACCOUNT_SUMMARY, GET_EXPENSES_BY_DAY, GET_RECENT_TRANSACTIONS } from '../../graphql/queries/homeQueries';
+import { SnackbarContext } from '../contexts/SnackbarContext';
+import { GET_ACCOUNT_SUMMARY, GET_EXPENSES_BY_DAY, GET_RECENT_TRANSACTIONS } from '../graphql/queries/homeQueries';
 
 const TransactionPage: React.FC<{ transactionType: TransactionType }> = ({ transactionType }) => {
   const [amount, setAmount] = useState('');
