@@ -9,6 +9,10 @@ const OnboardingScreen: React.FC = () => {
   const handleLoginClick = () => {
     navigate('/login');
   };
+
+  const handleSignUpClick = () => {
+    navigate('/sign-up');
+  };
   
   return (
     <Container maxWidth="sm">
@@ -27,7 +31,7 @@ const OnboardingScreen: React.FC = () => {
           width: '100%',
           marginTop: '20px'
         }}>
-          <Button variant="contained" color="primary" fullWidth>
+          <Button variant="contained" color="primary" fullWidth onClick={handleSignUpClick}>
             Sign Up
           </Button>
           <Button variant="outlined" color="primary" fullWidth sx={{ mt: 2 }} onClick={handleLoginClick}>
