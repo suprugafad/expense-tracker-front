@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import FooterWithFab from '../common/FooterWithFab/FooterWithFab';
-import TransactionHistoryHeader from '../common/TransactionHistoryHeader';
+import FooterWithFab from '../components/layout/FooterWithFab/FooterWithFab';
+import TransactionHistoryHeader from '../features/transaction-history/TransactionHistoryHeader';
 import { Container } from '@mui/material';
-import PeriodTransactions from '../common/PeriodTransactions';
-import { PeriodEnum } from '../../types';
+import PeriodTransactions from '../features/transaction-history/PeriodTransactions';
+import { PeriodEnum } from '../types';
 
 const TransactionHistoryPage: React.FC = () => {
   const [period, setPeriod] = useState(PeriodEnum.WEEK);

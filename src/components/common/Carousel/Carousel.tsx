@@ -4,6 +4,7 @@ import MobileStepper from '@mui/material/MobileStepper';
 import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
 import { Box, Button, Typography } from '@mui/material';
+import { CarouselStyles as styles } from './Carousel.styles';
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
@@ -52,41 +53,21 @@ const Carousel: React.FC = () => {
         interval={5000}
       >
         {tutorialSteps.map((step, index) => (
-          <Box key={step.label} sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center', 
-            width: '100%',
-          }}
-          >
+          <Box key={step.label} sx={styles.slideBox}>
             {Math.abs(activeStep - index) <= 2 ? (
               <Box
                 component="img"
                 src={step.imgPath}
                 alt={step.label}
-                sx={{
-                  display: 'block',
-                  maxWidth: 300,
-                  overflow: 'hidden',
-                  width: '100%',
-                }}
+                sx={styles.image}
               />
             ) : null}
-            <Typography variant="h4" component="h1" gutterBottom sx={{
-              fontWeight: 'bold',
-              textAlign: 'center', 
-              overflowWrap: 'break-word',
-              wordWrap: 'break-word',
-              hyphens: 'auto',
-            }}>{step.label}</Typography>
-            <Typography variant="subtitle1" component="p" gutterBottom sx={{
-                textAlign: 'center', 
-                overflowWrap: 'break-word',
-                wordWrap: 'break-word',
-                hyphens: 'auto',
-                color: 'gray'
-              }}>{step.description} </Typography>
+            <Typography variant="h4" component="h1" gutterBottom sx={styles.title}>
+              {step.label}
+            </Typography>
+            <Typography variant="subtitle1" component="p" gutterBottom sx={styles.description}>
+              {step.description} 
+            </Typography>
           </Box>
         ))}
       </AutoPlaySwipeableViews>

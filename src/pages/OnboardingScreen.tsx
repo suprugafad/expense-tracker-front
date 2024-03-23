@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Button, Container } from '@mui/material';
-import Carousel from '../common/Carousel';
+import Carousel from '../components/common/Carousel';
 import { useNavigate } from 'react-router-dom';
 
 const OnboardingScreen: React.FC = () => {

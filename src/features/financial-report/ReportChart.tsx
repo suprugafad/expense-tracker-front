@@ -5,7 +5,7 @@ import { PieChart } from '@mui/x-charts';
 import { Box, FormControl, IconButton, InputLabel, List, ListItem, ListItemIcon, ListItemText, MenuItem, Select, ToggleButton, Typography } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useNavigate } from 'react-router-dom';
-import { StyledToggleButtonGroup } from './TransactionFilterDialog/TransactionFiltersDialog.styles';
+import { StyledToggleButtonGroup } from '../transaction-history/TransactionFilterDialog/TransactionFiltersDialog.styles';
 import { PeriodEnum, TransactionType } from '../../types';
 
 type ChartDataItem = {

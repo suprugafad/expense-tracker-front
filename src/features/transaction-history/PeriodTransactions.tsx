@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import TransactionList from './TransactionList'
+import TransactionList from '../../components/common/TransactionList'
 import { Box, Button } from '@mui/material'
 import { useQuery } from '@apollo/client';
 import { PeriodEnum } from '../../types';
