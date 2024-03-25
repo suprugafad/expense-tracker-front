@@ -131,7 +131,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
         color="primary"
         sx={styles.createButton}
       >
-        Create transaction
+        Submit transaction
       </Button>
     </Box>
   );

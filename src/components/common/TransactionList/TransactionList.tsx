@@ -4,6 +4,7 @@ import { Transaction, TransactionType } from '../../../types';
 import { useTransactionFilter } from '../../../contexts/TransactionFilterContext';
 import { formatDate, getImage, groupTransactionsByDate } from '../../../utils/transactionUtils';
 import { TransactionListStyles as styles } from './TransactionList.styles';
+import { useNavigate } from 'react-router-dom';
 
 export interface TransactionListProps {
   transactions: Transaction[];
@@ -17,13 +18,23 @@ const TransactionList: React.FC<TransactionListProps> = ({ transactions, isHomeP
 
   const groupedTransactions = areGrouped ? groupTransactionsByDate(transactions) : { '': transactions };
 
+  const navigate = useNavigate();
+
+  const handleItemClick = (transactionId: string) => {
+    navigate(`/transactions/edit/${transactionId}`);
+  };
+
   return(
     <List sx={styles.list}>
       {Object.keys(groupedTransactions).map((date) => (
         <React.Fragment key={date}>
           {!isHomePage && <ListSubheader sx={styles.listSubheader}>{date}</ListSubheader>}
           {groupedTransactions[date].map((transaction) => (
-            <ListItem key={transaction.id} sx={styles.listItem}>
+            <ListItem 
+              key={transaction.id} 
+              sx={styles.listItem} 
+              onClick={() => handleItemClick(transaction.id)}
+            >
               <ListItemAvatar>
                 <Avatar src={getImage(transaction.type)} alt={transaction.type} />
               </ListItemAvatar>

@@ -28,3 +28,19 @@ export const GET_USER_TRANSACTIONS = gql`
     }
   }
 `
+
+export const GET_TRANSACTION_BY_ID = gql`
+  query GetTransactionById($id: String!) {
+    getTransactionById(id: $id) {
+      id
+      amount
+      type
+      category {
+        id
+        name
+      }
+      description
+      date
+    }
+  }
+`;

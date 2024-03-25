@@ -14,6 +14,7 @@ import TransactionHistoryPage from './pages/TransactionHistoryPage';
 import { TransactionFilterProvider } from './contexts/TransactionFilterProvider';
 import FinancialReportPage from './pages/FinancialReportPage';
 import SignUpPage from './pages/SignUpPage';
+import EditTransactionPage from './pages/EditTransactionPage';
 
 const App: React.FC = () => {
   return (
@@ -32,6 +33,7 @@ const App: React.FC = () => {
               <Route path="/transaction/expense" element={<TransactionPage transactionType={TransactionType.EXPENSES} />} />
               <Route path="/transaction-history" element={<TransactionHistoryPage/>} />
               <Route path="/financial-report" element={<FinancialReportPage/>} />
+              <Route path="/transactions/edit/:id" element={<EditTransactionPage/>} />
             </Routes>
           </Router>
         </TransactionFilterProvider>

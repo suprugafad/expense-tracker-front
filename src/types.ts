@@ -24,6 +24,14 @@ export interface Transaction {
   date: string;
 }
 
+export interface UpdatedFieldsInTransaction {
+  type?: TransactionType;
+  categoryId?: string;
+  description?: string;
+  amount?: number;
+  date?: string;
+}
+
 export interface Category {
   id: string;
   name: string;
