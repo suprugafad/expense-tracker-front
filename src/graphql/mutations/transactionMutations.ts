@@ -15,3 +15,19 @@ export const ADD_TRANSACTION = gql`
     }
   }
 `;
+
+export const UPDATE_TRANSACTION = gql`
+mutation UpdateTransaction($id: ID!, $amount: Float, $type: TransactionTypeEnum, $description: String, $categoryId: String, $date: DateTime) {
+  updateTransaction(id: $id, updateTransactionInput: { amount: $amount, type: $type, categoryId: $categoryId, description: $description, date: $date }) {
+    id
+    amount
+    type
+    category {
+      id
+      name
+    }
+    description
+    date
+  }
+}
+`;

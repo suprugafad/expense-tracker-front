@@ -1,7 +1,7 @@
 import React from 'react';
 import AccountSummary from '../features/home/AccountSummary';
 import { Container } from '@mui/material';
-import SpendFrequencyChart from '../features/home/SpendFrequencyChart';
+import SpendFrequencyChart from '../features/home/SpendFrequencyChart/SpendFrequencyChart';
 import RecentTransactions from '../features/home/RecentTransactions';
 import FooterWithFab from '../components/layout/FooterWithFab/FooterWithFab';
 

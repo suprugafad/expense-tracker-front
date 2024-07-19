@@ -1,13 +1,13 @@
 import { Box, useTheme } from '@mui/material';
 import React, { useContext, useState } from 'react';
 import { TransactionType } from '../types';
-import TransactionHeader from '../features/add-transaction/TransactionHeader';
-import TransactionForm from '../features/add-transaction/TransactionForm';
+import TransactionHeader from '../features/add-transaction/TransactionHeader/TransactionHeader';
+import TransactionForm from '../features/add-transaction/TransactionForm/TransactionForm';
 import { useMutation } from '@apollo/client';
 import { ADD_TRANSACTION } from '../graphql/mutations/transactionMutations';
 import { useNavigate } from 'react-router-dom';
 import { SnackbarContext } from '../contexts/SnackbarContext';
-import { GET_ACCOUNT_SUMMARY, GET_EXPENSES_BY_DAY, GET_RECENT_TRANSACTIONS } from '../graphql/queries/homeQueries';
+import { GET_ACCOUNT_SUMMARY, GET_AMOUNTS_BY_CATEGORY, GET_EXPENSES_BY_DAY, GET_RECENT_TRANSACTIONS } from '../graphql/queries/homeQueries';
 
 const TransactionPage: React.FC<{ transactionType: TransactionType }> = ({ transactionType }) => {
   const [amount, setAmount] = useState('');
@@ -27,6 +27,7 @@ const TransactionPage: React.FC<{ transactionType: TransactionType }> = ({ trans
   const [addTransaction] = useMutation(ADD_TRANSACTION, {
     refetchQueries: [
       { query: GET_ACCOUNT_SUMMARY },
+      { query: GET_AMOUNTS_BY_CATEGORY, variables: { days: 30, type: transactionType } },
       { query: GET_EXPENSES_BY_DAY, variables: { days: 7 } },
       { query: GET_RECENT_TRANSACTIONS, variables: { limit: 3 } },
     ],
