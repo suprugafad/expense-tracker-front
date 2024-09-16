@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container } from '@mui/material';
-import ReportChart from '../common/ReportChart';
-import FooterWithFab from '../common/FooterWithFab/FooterWithFab';
+import ReportChart from '../features/financial-report/ReportChart';
+import FooterWithFab from '../components/layout/FooterWithFab/FooterWithFab';
 
 const FinancialReportPage: React.FC = () => {
   return (

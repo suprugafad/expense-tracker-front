@@ -1,10 +1,9 @@
 import * as React from 'react';
 import { LineChart } from '@mui/x-charts';
-import { GET_EXPENSES_BY_DAY } from '../../graphql/queries/homeQueries';
+import { GET_EXPENSES_BY_DAY } from '../../../graphql/queries/homeQueries';
 import { useQuery } from '@apollo/client';
 import { Box, Typography } from '@mui/material';
-
-
+import { SpendFrequencyChartStyles as styles } from './SpendFrequencyChart.styles';
 
 const SpendFrequencyChart: React.FC = () => {
   const { data, loading, error } = useQuery(GET_EXPENSES_BY_DAY, {
@@ -18,15 +17,8 @@ const SpendFrequencyChart: React.FC = () => {
   const days = data.getExpensesByDay.map((element: { day: string }) => element.day);
 
   return (
-    <Box sx={{marginTop: '12px', backgroundColor: '#f5edff', borderRadius: '15px'}}>
-      <Typography variant="h6" component="h1" gutterBottom sx={{
-        fontWeight: 'bold',
-        overflowWrap: 'break-word',
-        wordWrap: 'break-word',
-        hyphens: 'auto',
-        padding: '10px 0 0 20px',
-        margin: 0
-      }}>
+    <Box sx={styles.chartContainer}>
+      <Typography variant="h6" component="h1" gutterBottom sx={styles.chartTitle}>
         Spend Frequency
       </Typography>
       <LineChart
@@ -34,11 +26,7 @@ const SpendFrequencyChart: React.FC = () => {
         height={270}
         series={[{ data: sums, type: 'line', area: true, color: '#7A41FA', showMark: false }]}
         xAxis={[{ scaleType: 'point', data: days }]}
-        sx={{
-          '.MuiLineElement-root': {
-            display: 'none',
-          },
-        }}
+        sx={styles.chart}
       />             
     </Box>
   );

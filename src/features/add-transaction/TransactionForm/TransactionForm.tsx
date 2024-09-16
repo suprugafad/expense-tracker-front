@@ -1,11 +1,12 @@
 import React, { useContext, useState } from 'react';
 import { Box, TextField, Button, MenuItem, FormControl, InputLabel, Select } from '@mui/material';
-import { GET_CATEGORIES } from '../../graphql/queries/transactionQueries';
+import { GET_CATEGORIES } from '../../../graphql/queries/transactionQueries';
 import { useMutation, useQuery } from '@apollo/client';
-import { Category } from '../../types';
-import { AddCategoryDialog } from './AddCategoryDialog';
-import { ADD_CATEGORY } from '../../graphql/mutations/categoryMutations';
-import { SnackbarContext } from '../../contexts/SnackbarContext';
+import { Category } from '../../../types';
+import { AddCategoryDialog } from '../AddCategoryDialog';
+import { ADD_CATEGORY } from '../../../graphql/mutations/categoryMutations';
+import { SnackbarContext } from '../../../contexts/SnackbarContext';
+import { TransactionFormStyles as styles } from './TransactionForm.styles';
 
 interface TransactionFormProps {
   categoryId: String;
@@ -76,7 +77,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
   const categories = data.getUserCategories;
 
   return (
-    <Box component="form" onSubmit={handleSubmit} sx={{ m: 1, height: '55vh', backgroundColor: 'white', margin: '0px', borderTopLeftRadius: '30px', borderTopRightRadius: '30px', padding: '16px', textAlign: 'right' }}>
+    <Box component="form" onSubmit={handleSubmit} sx={styles.transactionFormBox}>
       <FormControl fullWidth margin="normal">
         <InputLabel>Category</InputLabel>
         <Select
@@ -93,7 +94,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
           ))}
         </Select>
       </FormControl>
-      <Button onClick={handleClickOpenDialog} variant="outlined" color="primary" size="small" sx={{border:'1px solid #f5edff', borderRadius: '25px', backgroundColor: '#f5edff', textTransform: 'none'}}>
+      <Button onClick={handleClickOpenDialog} variant="outlined" color="primary" size="small" sx={styles.smallOutlinedButton}>
         Add new category
       </Button>
       <AddCategoryDialog 
@@ -107,7 +108,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
       <TextField
         fullWidth
         margin='normal'
-        sx={{ marginTop:'25px' }}
+        sx={{ marginTop:'25px'}}
         label="Description"
         value={description}
         onChange={handleDescriptionChange}
@@ -128,9 +129,9 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
         fullWidth
         variant="contained"
         color="primary"
-        sx={{ mt: 3, mb: 2, borderRadius: '15px', height: '56px', textTransform: 'none', fontSize: '1rem', fontWeight: 'bold' }}
+        sx={styles.createButton}
       >
-        Create transaction
+        Submit transaction
       </Button>
     </Box>
   );
